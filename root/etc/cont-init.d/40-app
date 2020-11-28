@@ -21,5 +21,9 @@ chown -R alpine:alpine \
     /config \
     /var/tmp/nginx \
     /config/www/akaunting
+    
+# write that cache
+chmod 777 -R \
+    /config/www/akaunting/storage
 
 echo "Done";
