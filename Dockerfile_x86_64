@@ -36,6 +36,13 @@ RUN set -xe \
     && curl -o ${AKAUNTING_SRC} -SL "https://github.com/akaunting/akaunting/releases/download/${VERSION}/Akaunting_${VERSION}-Stable.zip" \
     && unzip -qt ${AKAUNTING_SRC} \
     && rm -rf /var/cache/apk/* /tmp/*
+#    
+# add libiconv so we can generate PDFs
+# see: https://github.com/nunomaduro/phpinsights/issues/43#issuecomment-498108857
+
+RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
 # add local files
 COPY root/ /
 # ports, volumes etc from php
